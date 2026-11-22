@@ -1,0 +1,27 @@
+
+name: iOS Port - Prepare Source
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout iOS repository
+        uses: actions/checkout@v4
+
+      - name: Checkout upstream source
+        uses: actions/checkout@v4
+        with:
+          repository: fabioschmidt01/PokeL-ARecomp
+          path: upstream
+
+      - name: Check source files
+        run: |
+          echo "Checking upstream source..."
+          test -f upstream/Makefile
+          test -f upstream/runtime/gamelib.c
+          test -f upstream/runtime/cpu.h
+          echo "Source files found."
